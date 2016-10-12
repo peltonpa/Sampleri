@@ -10,14 +10,24 @@
     tools:context="com.testi.peltonpa.sampleri.MainActivity">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="185dp"
+        android:layout_height="185dp"
         android:text="Press a button to playback a sound. Paina nappia soittaaksesi äänen." />
 
     <Button
         android:id="@+id/play"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
         android:onClick="playSnare" />
+
+    <Button
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:onClick="playKick" />
+
+    <Button
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:onClick="playHat" />
 
 </LinearLayout>
