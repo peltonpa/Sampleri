@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         AudioAttributes audioAttributes = new AudioAttributes.Builder()
                 .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                .setUsage(AudioAttributes.USAGE_GAME)
+                .setUsage(AudioAttributes.USAGE_MEDIA)
                 .build();
 
         sp = new SoundPool.Builder()
