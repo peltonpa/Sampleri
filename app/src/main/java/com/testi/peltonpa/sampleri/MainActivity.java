@@ -14,13 +14,10 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    public MediaPlayer mp;
-    public SoundPool sp;
-    public AudioManager am;
-    public HashMap<String, Integer> spMap;
-    public int sampleId;
-    public boolean loaded = false;
-    public float volume;
+    private SoundPool sp;
+    private AudioManager am;
+    private HashMap<String, Integer> soundMap;
+    private float volume;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +26,16 @@ public class MainActivity extends AppCompatActivity {
 
         this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
-        spMap = new HashMap();
+        soundMap = new HashMap();
         am = (AudioManager) getSystemService(AUDIO_SERVICE);
+
         initializeSoundpool();
 
+        loadSamplesAndSetVolume();
     }
 
     //Builds AudioAttributes and SoundPool to be utilized for sample playback
-    public void initializeSoundpool() {
+    private void initializeSoundpool() {
 
         AudioAttributes audioAttributes = new AudioAttributes.Builder()
                 .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
@@ -47,22 +46,23 @@ public class MainActivity extends AppCompatActivity {
                 .setMaxStreams(4)
                 .setAudioAttributes(audioAttributes)
                 .build();
-
-        loadSamplesAndSetVolume();
     }
 
-    public void loadSamplesAndSetVolume() {
+    //Sets volume attribute to (current cell phone music volume) / (cell phone max volume)
+    // and loads samples onto SoundPool and maps their id's to soundMap
+    private void loadSamplesAndSetVolume() {
         float actualVolume = (float) am.getStreamVolume(AudioManager.STREAM_MUSIC);
         float maxVolume = (float) am.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         volume = actualVolume / maxVolume;
 
-
-
+        soundMap.put("snare", Integer.valueOf(sp.load(this, R.raw.snare, 1)));
+        soundMap.put("kick", Integer.valueOf(sp.load(this, R.raw.kick, 1)));
+        soundMap.put("hat", Integer.valueOf(sp.load(this, R.raw.hattu, 1)));
     }
 
     public void playSnare(View view) {
         try {
-            sp.play(sampleId, volume, volume, 1, 0, 1);
+            sp.play(soundMap.get("snare"), volume, volume, 1, 0, 1);
         } catch (Exception e) {
             Log.e("playSnare", "MediaPlayer cannot update data source (audio file may not exist)", e);
         }
@@ -71,23 +71,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void playKick(View view) {
         try {
-
-            this.mp.release();
-            this.mp = MediaPlayer.create(this, R.raw.kick);
+            sp.play(soundMap.get("kick"), volume, volume, 1, 0 ,1);
         } catch (Exception e) {
             Log.e("playKick", "MediaPlayer cannot update data source (audio file may not exist", e);
         }
-        mp.start();
     }
 
     public void playHat(View view) {
         try {
-            this.mp.release();
-            this.mp = MediaPlayer.create(this, R.raw.hattu);
+            sp.play(soundMap.get("hat"), volume, volume, 1, 0, 1);
         } catch (Exception e) {
             Log.e("playKick", "MediaPlayer cannot update data source (audio file may not exist", e);
         }
-        mp.start();
     }
 
 }
