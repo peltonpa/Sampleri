@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.SeekBar;
 
 import java.util.HashMap;
 
@@ -17,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     private SoundPool sp;
     private AudioManager am;
     private HashMap<String, Integer> soundMap;
+    private HashMap<String, Float> playbackRates;
+    private HashMap<String, SeekBar> pitchMap;
     private float volume;
 
     @Override
@@ -27,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         soundMap = new HashMap();
+        playbackRates = new HashMap();
         am = (AudioManager) getSystemService(AUDIO_SERVICE);
 
         initializeSoundpool();
@@ -58,11 +62,20 @@ public class MainActivity extends AppCompatActivity {
         soundMap.put("snare", Integer.valueOf(sp.load(this, R.raw.snare, 1)));
         soundMap.put("kick", Integer.valueOf(sp.load(this, R.raw.kick, 1)));
         soundMap.put("hat", Integer.valueOf(sp.load(this, R.raw.hattu, 1)));
+
+        playbackRates.put("snare", 1f);
+        playbackRates.put("kick", 1f);
+        playbackRates.put("hat", 1f);
+
+        pitchMap.put("snare", (SeekBar) findViewById(R.id.pitch1));
+        pitchMap.put("kick", (SeekBar) findViewById(R.id.pitch2));
+        pitchMap.put("hat", (SeekBar) findViewById(R.id.pitch3));
     }
 
     public void playSnare(View view) {
         try {
-            sp.play(soundMap.get("snare"), volume, volume, 1, 0, 1);
+            float playbackRate = pitchMap.get("snare").getProgress();
+            sp.play(soundMap.get("snare"), volume, volume, 1, 0, playbackRate);
         } catch (Exception e) {
             Log.e("playSnare", "MediaPlayer cannot update data source (audio file may not exist)", e);
         }
@@ -71,18 +84,37 @@ public class MainActivity extends AppCompatActivity {
 
     public void playKick(View view) {
         try {
-            sp.play(soundMap.get("kick"), volume, volume, 1, 0 ,1);
+            float playbackRate = playbackRates.get("kick");
+            sp.play(soundMap.get("kick"), volume, volume, 1, 0, playbackRate);
         } catch (Exception e) {
-            Log.e("playKick", "MediaPlayer cannot update data source (audio file may not exist", e);
+            Log.e("playKick", "MediaPlayer cannot update data source (audio file may not exist)", e);
         }
     }
 
     public void playHat(View view) {
         try {
-            sp.play(soundMap.get("hat"), volume, volume, 1, 0, 1);
+            float playbackRate = playbackRates.get("hat");
+            sp.play(soundMap.get("hat"), volume, volume, 1, 0, playbackRate);
         } catch (Exception e) {
-            Log.e("playKick", "MediaPlayer cannot update data source (audio file may not exist", e);
+            Log.e("playHat", "MediaPlayer cannot update data source (audio file may not exist)", e);
         }
     }
+
+    public float getPlayback(String sample) {
+        float playback;
+        SeekBar pitch = pitchMap.get(sample);
+        float value = pitch.getProgress();
+
+        if (value < 50) {
+            playback = 0.5f + value / 100;
+        } else if (value > 50) {
+            playback = 1f + value / 100;
+        } else {
+            playback = 1f;
+        }
+        playbackRates.put("snare", playback);
+    }
+
+
 
 }

@@ -35,16 +35,21 @@
             android:layout_width="125dp"
             android:layout_height="125dp"
             android:onClick="playSnare" />
+
         <SeekBar
             android:id="@+id/pitch1"
-            android:layout_below="@id/button1"
             android:layout_width="125dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/button1"
+            android:max="100"
+            android:progress="50" />
+
         <TextView
-            android:text="Adjust pitch"
-            android:layout_below="@id/pitch1"
+            android:id="@+id/adfsd"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pitch1"
+            android:text="@string/pitch" />
 
     </RelativeLayout>
 
@@ -58,16 +63,20 @@
             android:layout_width="125dp"
             android:layout_height="125dp"
             android:onClick="playKick" />
+
         <SeekBar
             android:id="@+id/pitch2"
-            android:layout_below="@id/button2"
             android:layout_width="125dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_below="@id/button2"
+            android:max="100"
+            android:progress="50" />
+
         <TextView
-            android:text="Adjust pitch"
-            android:layout_below="@id/pitch2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pitch2"
+            android:text="@string/pitch" />
 
     </RelativeLayout>
 
@@ -81,16 +90,20 @@
             android:layout_width="125dp"
             android:layout_height="125dp"
             android:onClick="playHat" />
+
         <SeekBar
             android:id="@+id/pitch3"
-            android:layout_below="@id/button3"
             android:layout_width="125dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/button3"
+            android:max="100"
+            android:progress="50" />
+
         <TextView
-            android:text="Adjust pitch"
-            android:layout_below="@id/pitch3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pitch3"
+            android:text="@string/pitch" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -102,16 +115,20 @@
             android:id="@+id/button4"
             android:layout_width="125dp"
             android:layout_height="125dp" />
+
         <SeekBar
             android:id="@+id/pitch4"
-            android:layout_below="@id/button4"
             android:layout_width="125dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/button4"
+            android:max="100"
+            android:progress="50" />
+
         <TextView
-            android:text="Adjust pitch"
-            android:color="#FFFFFF"
-            android:layout_below="@id/pitch4"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pitch4"
+            android:color="#ffffff"
+            android:text="@string/pitch" />
     </RelativeLayout>
 </LinearLayout>

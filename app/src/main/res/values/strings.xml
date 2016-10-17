@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Sampleri</string>
+    <string name="pitch">Adjust pitch</string>
+    <string name="snare">Snare</string>
+    <string name="kick">Kick</string>
+    <string name="hat">Hat</string>
 </resources>
